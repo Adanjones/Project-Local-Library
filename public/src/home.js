@@ -53,11 +53,18 @@ const getMostCommonGenres = books => {
       .slice(0, 5);
   return popularBooks;
 }*/      
-const getMostPopularBooks = books =>
-  books
-      .map(book => ({ name: book.title, count: book.borrows.length }))
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 5);
+// Helper function to calculate the borrow count for a single book
+const calculateBorrowCount = (book) => book.borrows.length;
+
+// Main function to get the most popular books
+const getMostPopularBooks = (books) => {
+    const popularBooks = books
+        .map(book => ({ name: book.title, count: calculateBorrowCount(book) }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 5);
+
+    return popularBooks;
+};
 
 /*function getMostPopularAuthors(books, authors) {
     const authorBorrowCounts = authors.map(author => {
